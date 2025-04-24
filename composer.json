@@ -1,0 +1,17 @@
+{
+    "name": "lea-reift/ocr-space",
+    "description": "OCR Space Api Wrapper library for PHP",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "LeaReift\\OcrSpace\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Manuel Guzman",
+            "email": "manuelguzman.villar@gmail.com"
+        }
+    ],
+    "require": {}
+}
