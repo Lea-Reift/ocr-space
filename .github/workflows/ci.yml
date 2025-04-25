@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
     - name: Setup PHP Action
       uses: shivammathur/setup-php@2.33.0
       with:
@@ -21,8 +24,8 @@ jobs:
         tools: phpunit:11.5, pint
         extensions: curl
 
-    # - name: Validate composer.json and composer.lock
-    #   run: composer validate --strict
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
