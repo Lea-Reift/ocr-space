@@ -2,7 +2,7 @@
 
 namespace LeaReift\OcrSpace\DTO;
 
-class OverlayLineWordDto
+readonly class OverlayLineWordDto
 {
     public function __construct(
         public string $word_text,
