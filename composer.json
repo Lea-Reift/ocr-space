@@ -7,11 +7,18 @@
             "LeaReift\\OcrSpace\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Manuel Guzman",
             "email": "manuelguzman.villar@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
 }
