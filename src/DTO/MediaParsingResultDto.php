@@ -7,7 +7,7 @@ use LeaReift\OcrSpace\Enums\FileParseExitCodeEnum;
 
 readonly class MediaParsingResultDto
 {
-    public Collection $text_overlay;
+    public TextOverlayDto $text_overlay;
 
     public function __construct(
         public FileParseExitCodeEnum $file_parse_exit_code,
@@ -16,14 +16,12 @@ readonly class MediaParsingResultDto
         public ?string $error_message,
         public ?string $error_details,
     ) {
-        $this->text_overlay = Collection::make($text_overlay)
-            ->mapIntoCollection()
-            ->map(fn(Collection $overlay) => TextOverlayDto::make(
-                lines: $overlay->get("Lines"),
-                has_overlay: $overlay->get("HasOverlay"),
-                message: $overlay->get("Message"),
-            ));
-
+        $overlay = Collection::make($text_overlay);
+        $this->text_overlay = TextOverlayDto::make(
+            lines: $overlay->get("Lines"),
+            has_overlay: $overlay->get("HasOverlay"),
+            message: $overlay->get("Message"),
+        );
     }
 
     public static function make(

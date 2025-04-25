@@ -2,8 +2,12 @@
 
 namespace LeaReift\OcrSpace\DTO;
 
+use LeaReift\OcrSpace\DTO\OverlayLineDto;
 use LeaReift\OcrSpace\Support\Collection;
 
+/**
+ * @property Collection<int, OverlayLineDto> $lines
+*/
 readonly class TextOverlayDto
 {
     public Collection $lines;

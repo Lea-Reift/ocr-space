@@ -2,10 +2,14 @@
 
 namespace LeaReift\OcrSpace\DTO;
 
-use LeaReift\OcrSpace\Enums\FileParseExitCodeEnum;
-use LeaReift\OcrSpace\Enums\OCRExitCodeEnum;
 use LeaReift\OcrSpace\Support\Collection;
+use LeaReift\OcrSpace\Enums\OCRExitCodeEnum;
+use LeaReift\OcrSpace\DTO\MediaParsingResultDto;
+use LeaReift\OcrSpace\Enums\FileParseExitCodeEnum;
 
+/** 
+ * @property Collection<int, MediaParsingResultDto> $parsed_results
+*/
 readonly class ApiResponseDTO
 {
     public Collection $parsed_results;
@@ -23,7 +27,7 @@ readonly class ApiResponseDTO
             ->mapIntoCollection()
             ->map(fn(Collection $parsedResult) => MediaParsingResultDto::make(
                 file_parse_exit_code: FileParseExitCodeEnum::from($parsedResult->get("FileParseExitCode")),
-                parsed_text: $parsedResult->get("ParsedText"),
+                parsed_text: trim($parsedResult->get("ParsedText")),
                 text_overlay: $parsedResult->get("TextOverlay"),
                 error_message: $parsedResult->get("ErrorMessage"),
                 error_details: $parsedResult->get("ErrorDetails"),

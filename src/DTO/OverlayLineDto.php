@@ -3,10 +3,13 @@
 namespace LeaReift\OcrSpace\DTO;
 
 use LeaReift\OcrSpace\Support\Collection;
+use LeaReift\OcrSpace\DTO\OverlayLineWordDto;
 
+/** 
+ * @property Collection<int, OverlayLineWordDto> $words
+*/
 readonly class OverlayLineDto
 {
-    /** @property Collection<int, OverlayLineWordDto> $words */
     public Collection $words;
 
     public function __construct(
