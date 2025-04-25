@@ -2,7 +2,6 @@
 
 namespace LeaReift\OcrSpace;
 
-use ArrayObject;
 use CURLFile;
 use InvalidArgumentException;
 use LeaReift\OcrSpace\DTO\ApiResponseDTO;
@@ -62,7 +61,7 @@ class Client
 
         curl_close($curl);
 
-        if($result === "You may only perform this action upto maximum 10 number of times within 600 seconds"){
+        if ($result === "You may only perform this action upto maximum 10 number of times within 600 seconds") {
             return ApiResponseDTO::make(
                 [],
                 OCRExitCodeEnum::TIME_OUT,
@@ -76,7 +75,7 @@ class Client
 
         $resultJson = json_decode($result, true);
 
-        if(json_last_error() != JSON_ERROR_NONE || !is_array($resultJson)) {
+        if (json_last_error() != JSON_ERROR_NONE || !is_array($resultJson)) {
             return ApiResponseDTO::make(
                 [],
                 OCRExitCodeEnum::FATAL_ERROR,
@@ -148,21 +147,25 @@ class Client
     {
         $exception = new InvalidArgumentException("Passed string is not a valid base 64 string");
 
-        if(!str_contains($base64String, "data:")) {
-            if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $base64String)) throw $exception;
+        if (!str_contains($base64String, "data:")) {
+            if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $base64String)) {
+                throw $exception;
+            }
 
             // Decode the string in strict mode and check the results
             $decoded = base64_decode($base64String, true);
-            if (false === $decoded || base64_encode($decoded) != $base64String) throw $exception;
-    
-            $this->detachInputFields();
-    
-            $base64Type = $this->validateBase64Type($base64String);
-    
-            if(is_null($base64Type)) {
+            if (false === $decoded || base64_encode($decoded) != $base64String) {
                 throw $exception;
             }
-    
+
+            $this->detachInputFields();
+
+            $base64Type = $this->validateBase64Type($base64String);
+
+            if (is_null($base64Type)) {
+                throw $exception;
+            }
+
             $base64String = "data:{$base64Type};base64,{$base64String}";
         }
 
@@ -262,18 +265,18 @@ class Client
     private function validateBase64Type(string $base64String): ?string
     {
         $decodedBytes = base64_decode(substr($base64String, 0, 100), true);
-    
+
         if ($decodedBytes === false) {
             return null;
         }
-    
+
         $signatures = [
             'image/jpeg' => ["\xFF\xD8\xFF\xE0", "\xFF\xD8\xFF\xE1", "\xFF\xD8\xFF\xE8"],
             'image/png'  => ["\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"],
             'image/gif'  => ["\x47\x49\x46\x38\x37\x61", "\x47\x49\x46\x38\x39\x61"],
             'application/pdf' => ["\x25\x50\x44\x46"],
         ];
-    
+
         foreach ($signatures as $mimeType => $patterns) {
             foreach ($patterns as $pattern) {
                 if (str_starts_with($decodedBytes, $pattern)) {
@@ -281,7 +284,7 @@ class Client
                 }
             }
         }
-    
+
         return null;
     }
 }

@@ -3,9 +3,8 @@
 namespace LeaReift\OcrSpace\DTO;
 
 use LeaReift\OcrSpace\Support\Collection;
-use LeaReift\OcrSpace\DTO\OverlayLineWordDto;
 
-/** 
+/**
  * @property Collection<int, OverlayLineWordDto> $words
 */
 readonly class OverlayLineDto
@@ -17,11 +16,10 @@ readonly class OverlayLineDto
         array $words,
         public float $max_height,
         public float $min_top,
-    )
-    {
+    ) {
         $this->words = Collection::make($words)
             ->mapIntoCollection()
-            ->map(fn(Collection $word) => OverlayLineWordDto::make(
+            ->map(fn (Collection $word) => OverlayLineWordDto::make(
                 word_text: $word->get("WordText"),
                 left: $word->get("Left"),
                 top: $word->get("Top"),
@@ -35,8 +33,7 @@ readonly class OverlayLineDto
         array $words,
         float $max_height,
         float $min_top,
-    ): self 
-    {
+    ): self {
         return new OverlayLineDto(
             $line_text,
             $words,

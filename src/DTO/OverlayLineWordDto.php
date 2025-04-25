@@ -10,8 +10,7 @@ readonly class OverlayLineWordDto
         public float $top,
         public float $height,
         public float $width,
-    )
-    {
+    ) {
     }
 
     public static function make(
@@ -20,8 +19,7 @@ readonly class OverlayLineWordDto
         float $top,
         float $height,
         float $width,
-    ): self
-    {
+    ): self {
         return new OverlayLineWordDto(
             $word_text,
             $left,

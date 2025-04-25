@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Tests\BaseTestCase;
 use LeaReift\OcrSpace\Client;
 use LeaReift\OcrSpace\DTO\ApiResponseDTO;
 use LeaReift\OcrSpace\DTO\MediaParsingResultDto;
@@ -19,7 +18,7 @@ class ClientTest extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-    
+
         $this->client = new Client("helloworld");
         $this->testImagePath = realpath(__DIR__ . "/resources/image.png");
         $this->testImageText = "OCRSpace";

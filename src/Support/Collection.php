@@ -30,50 +30,56 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
         return new Collection($array);
     }
 
-    public function isEmpty(): bool 
+    public function isEmpty(): bool
     {
         return empty($this->array);
     }
 
-    public function isNotEmpty(): bool 
+    public function isNotEmpty(): bool
     {
         return !empty($this->array);
     }
 
-    public function getIterator(): Traversable {
+    public function getIterator(): Traversable
+    {
         return new ArrayIterator($this->array);
     }
 
-    public function offsetExists(mixed $offset): bool {
+    public function offsetExists(mixed $offset): bool
+    {
         return array_key_exists($offset, $this->array);
     }
 
-    public function get(int|string $offset): mixed 
+    public function get(int|string $offset): mixed
     {
         return $this->array[$offset] ?? null;
     }
 
-    public function offsetGet(mixed $offset): mixed {
+    public function offsetGet(mixed $offset): mixed
+    {
         return $this->get($offset);
     }
 
-    public function offsetSet(mixed $offset, mixed $value): void {
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
         $this->array[$offset] = $value;
     }
 
-    public function offsetUnset(mixed $offset): void {
+    public function offsetUnset(mixed $offset): void
+    {
         unset($this->array[$offset]);
-     }
+    }
 
-    public function count(): int {
+    public function count(): int
+    {
         return count($this->array);
     }
 
-    public function toArray(): array 
+    public function toArray(): array
     {
         return $this->array;
     }
-    
+
     /**
      * @return Collection<TKey>
      */
@@ -82,7 +88,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
         return static::make(array_keys($this->array));
     }
 
-    public function map(callable $callback): Collection 
+    public function map(callable $callback): Collection
     {
         return static::make(array_map($callback, $this->array, $this->keys()->toArray()));
     }
@@ -90,13 +96,13 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @return ?TValue
      */
-    public function first(): mixed 
+    public function first(): mixed
     {
         return $this->get(0);
     }
 
-    public function mapIntoCollection(): Collection 
+    public function mapIntoCollection(): Collection
     {
-        return $this->map(fn(array|Traversable $item) => Collection::make($item));
+        return $this->map(fn (array|Traversable $item) => Collection::make($item));
     }
 }

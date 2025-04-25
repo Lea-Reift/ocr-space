@@ -2,8 +2,8 @@
 
 namespace LeaReift\OcrSpace\Enums;
 
-enum LanguageCodeEnum: string {
-
+enum LanguageCodeEnum: string
+{
     case ARABIC = 'ara';
     case BULGARIAN = 'bul';
     case CHINESE_SIMPLIFIED = 'chs';
