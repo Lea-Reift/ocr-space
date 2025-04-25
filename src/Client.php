@@ -199,7 +199,7 @@ class Client
     public function fileType(string|FileTypeEnum $fileType): self
     {
         if (is_string($fileType)) {
-            $fileType = FileTypeEnum::from($fileType);
+            $fileType = FileTypeEnum::from(strtoupper($fileType));
         }
 
         $this->requestParameters->attach(RequestParameterEnum::FILETYPE, $fileType->value);
