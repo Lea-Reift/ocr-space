@@ -50,7 +50,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
         return array_key_exists($offset, $this->array);
     }
 
-    public function get(int|string $offset): mixed
+    public function get(int|string|null $offset): mixed
     {
         return $this->array[$offset] ?? null;
     }
@@ -98,11 +98,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
      */
     public function first(): mixed
     {
-        return $this->get(0);
+        return $this->get(array_key_first($this->array));
     }
 
     public function mapIntoCollection(): Collection
     {
-        return $this->map(fn (array|Traversable $item) => Collection::make($item));
+        return $this->map(fn (array $item) => Collection::make($item));
     }
 }
