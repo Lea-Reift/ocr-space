@@ -8,6 +8,14 @@ use Countable;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @template TKey of array-key
+ *
+ * @template-covariant TValue
+ *
+ * @implements \ArrayAccess<TKey, TValue>
+ * @implements \Illuminate\Support\Enumerable<TKey, TValue>
+ */
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
     protected array $array;
@@ -20,6 +28,16 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
     public static function make(?array $array): self
     {
         return new Collection($array);
+    }
+
+    public function isEmpty(): bool 
+    {
+        return empty($this->array);
+    }
+
+    public function isNotEmpty(): bool 
+    {
+        return !empty($this->array);
     }
 
     public function getIterator(): Traversable {
@@ -55,7 +73,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
     {
         return $this->array;
     }
-
+    
+    /**
+     * @return Collection<TKey>
+     */
     public function keys(): Collection
     {
         return static::make(array_keys($this->array));
@@ -66,9 +87,16 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
         return static::make(array_map($callback, $this->array, $this->keys()->toArray()));
     }
 
+    /**
+     * @return ?TValue
+     */
+    public function first(): mixed 
+    {
+        return $this->get(0);
+    }
+
     public function mapIntoCollection(): Collection 
     {
         return $this->map(fn(array|Traversable $item) => Collection::make($item));
     }
-
 }
