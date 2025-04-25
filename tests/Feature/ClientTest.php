@@ -26,8 +26,8 @@ class ClientTest extends TestCase
         parent::setUp();
 
         $this->client = new Client("helloworld");
-        $this->testImagePath = realpath(__DIR__ . "/resources/image.png");
         $this->testImageText = "OCRSpace";
+        $this->testImagePath = realpath(__DIR__ . "/../resources/image.png");
         $this->testBase64Image = base64_encode(file_get_contents($this->testImagePath));
     }
 
