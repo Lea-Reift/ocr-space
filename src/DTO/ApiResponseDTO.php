@@ -15,12 +15,12 @@ readonly class ApiResponseDTO
     public Collection $parsed_results;
 
     public function __construct(
-        array $parsed_results,
+        ?array $parsed_results,
         public OCRExitCodeEnum $ocr_exit_code,
         public int $processing_time_in_miliseconds,
         public bool $is_errored_on_processing,
-        public ?string $error_message,
-        public ?string $error_details,
+        public null|string|array $error_message,
+        public null|string|array $error_details,
         public ?string $searchable_pdf_url
     ) {
         $this->parsed_results = Collection::make($parsed_results)
@@ -35,12 +35,12 @@ readonly class ApiResponseDTO
     }
 
     public static function make(
-        array $parsed_results,
+        ?array $parsed_results,
         OCRExitCodeEnum $ocr_exit_code,
         int $processing_time_in_miliseconds,
         bool $is_errored_on_processing,
-        ?string $error_message,
-        ?string $error_details,
+        null|string|array $error_message,
+        null|string|array $error_details,
         ?string $searchable_pdf_url
     ): static {
         return new ApiResponseDTO(
