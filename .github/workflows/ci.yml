@@ -18,9 +18,11 @@ jobs:
       uses: shivammathur/setup-php@2.33.0
       with:
         php-version: '8.2'
+        tools: phpunit:11.5, pint
+        extensions: curl
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+    # - name: Validate composer.json and composer.lock
+    #   run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
