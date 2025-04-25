@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use LeaReift\OcrSpace\Support\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 #[CoversClass(Collection::class)]
 class CollectionTest extends TestCase
@@ -171,5 +172,13 @@ class CollectionTest extends TestCase
         $this->assertSame(['cc' => 32, 'dd' => 33], $mappedCollection->get(0)->toArray());
         $this->assertInstanceOf(Collection::class, $mappedCollection->get(1));
         $this->assertSame(['ee' => 34, 'ff' => 35], $mappedCollection->get(1)->toArray());
+    }
+
+    public function testInvalidChildItemCannotBeConvertedIntoCollection(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Item is not a collectable object");
+
+        Collection::make([1])->mapIntoCollection();
     }
 }

@@ -6,6 +6,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use RuntimeException;
 use Traversable;
 
 /**
@@ -103,6 +104,23 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
     public function mapIntoCollection(): Collection
     {
-        return $this->map(fn (array $item) => Collection::make($item));
+        $exception = new RuntimeException("Item is not a collectable object");
+        return $this->map(function (mixed $item) use ($exception) {
+            if (is_array($item)) {
+                return Collection::make($item);
+            }
+
+            if ($item instanceof ArrayAccess || $item instanceof Traversable) {
+                $data = [];
+
+                foreach ($item as $key => $value) {
+                    $data[$key] = $value;
+                }
+
+                return Collection::make($data);
+            }
+
+            throw $exception;
+        });
     }
 }
