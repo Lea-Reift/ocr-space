@@ -302,6 +302,11 @@ if (!$response->is_errored_on_processing) {
 Contributions are always welcome!
 Just open a Pull Request with your changes and I'll review it as soon as I can!
 
+## Credits
+
+OCR.space is a service of [a9t9 software GmbH](https://a9t9.com/about). They are also in [github](https://github.com/A9T9)
+
+This package is an independent development that is in no way linked to a9t9 software. I want to acknowledge a9t9 for put this OCR service online.
 
 ## License
 
