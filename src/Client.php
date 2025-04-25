@@ -57,37 +57,37 @@ class Client
             throw new \RuntimeException('curl_setopt_array failed. ' . curl_errno($curl) . ': ' . curl_error($curl));
         }
 
-        $result = curl_exec($curl);
+        $response = curl_exec($curl);
 
         curl_close($curl);
 
-        if ($result === "You may only perform this action upto maximum 10 number of times within 600 seconds") {
+        if ($response === "You may only perform this action upto maximum 10 number of times within 600 seconds") {
             return ApiResponseDTO::make(
                 [],
                 OCRExitCodeEnum::TIME_OUT,
                 0,
                 true,
-                $result,
+                $response,
                 null,
                 null
             );
         }
 
-        $resultJson = json_decode($result, true);
+        $responseJson = json_decode($response, true);
 
-        if (json_last_error() != JSON_ERROR_NONE || !is_array($resultJson)) {
+        if (json_last_error() != JSON_ERROR_NONE || !is_array($responseJson)) {
             return ApiResponseDTO::make(
                 [],
                 OCRExitCodeEnum::FATAL_ERROR,
                 0,
                 true,
-                $result,
+                $response,
                 null,
                 null
             );
         }
 
-        return $this->parseResponse(new Collection($resultJson));
+        return $this->parseResponse(new Collection($responseJson));
     }
 
     protected function parseResponse(Collection $response): ApiResponseDTO
@@ -113,15 +113,15 @@ class Client
 
     public function fromUrl(string $url): self
     {
-        $url = filter_var($url, FILTER_VALIDATE_URL);
+        $validatedUrl = filter_var($url, FILTER_VALIDATE_URL);
 
-        if (!$url) {
+        if (!$validatedUrl) {
             throw new InvalidArgumentException("'{$url}' is not a valid URL");
         }
 
         $this->detachInputFields();
 
-        $this->requestParameters->attach(RequestParameterEnum::URL, $url);
+        $this->requestParameters->attach(RequestParameterEnum::URL, $validatedUrl);
 
         return $this;
     }
@@ -230,7 +230,6 @@ class Client
         $this->requestParameters->attach(RequestParameterEnum::IS_TABLE, $isTable);
         return $this;
     }
-
 
     public function engine(int $engine = 1): self
     {
