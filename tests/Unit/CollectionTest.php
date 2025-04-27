@@ -146,7 +146,7 @@ class CollectionTest extends TestCase
         $dataWithKeys = ['a' => 1, 'b' => 2, 'c' => 3];
         $collectionWithKeys = new Collection($dataWithKeys);
         $mappedCollectionWithKeys = $collectionWithKeys->map(fn ($value, $key) => $value . $key);
-        $this->assertSame(['1a', '2b', '3c'], $mappedCollectionWithKeys->toArray());
+        $this->assertSame(['a' => '1a', 'b' => '2b', 'c' => '3c'], $mappedCollectionWithKeys->toArray());
     }
 
     public function testFirst(): void
