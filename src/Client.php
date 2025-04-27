@@ -186,13 +186,13 @@ class Client
 
     public function isOverlayRequired(bool $isRequired): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_OVERLAY_REQUIRED, $isRequired === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::IS_OVERLAY_REQUIRED, $isRequired);
         return $this;
     }
 
     public function detectOrientation(bool $detectOrientation): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::DETECT_ORIENTATION, $detectOrientation === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::DETECT_ORIENTATION, $detectOrientation);
         return $this;
     }
 
@@ -209,25 +209,25 @@ class Client
 
     public function isCreateSearchablePdf(bool $isCreateSearchablePdf): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_CREATE_SEARCHABLE_PDF, $isCreateSearchablePdf === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::IS_CREATE_SEARCHABLE_PDF, $isCreateSearchablePdf);
         return $this;
     }
 
     public function isSearchablePdfHideTextLayer(bool $isSearchablePdfHideTextLayer): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_SEARCHABLE_PDF_HIDE_TEXT_LAYER, $isSearchablePdfHideTextLayer === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::IS_SEARCHABLE_PDF_HIDE_TEXT_LAYER, $isSearchablePdfHideTextLayer);
         return $this;
     }
 
     public function scale(bool $scale): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::SCALE, $scale === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::SCALE, $scale);
         return $this;
     }
 
     public function isTable(bool $isTable): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_TABLE, $isTable === true ? "true" : "false");
+        $this->requestParameters->attach(RequestParameterEnum::IS_TABLE, $isTable);
         return $this;
     }
 
@@ -255,9 +255,19 @@ class Client
         return $params;
     }
 
+    protected function parseOptions(): array
+    {
+        return Collection::make($this->options())
+            ->map(fn ($option) => match (true) {
+                is_bool($option) => $option ? "true" : "false",
+                default => $option,
+            })
+            ->toArray();
+    }
+
     public function get(): ApiResponseDTO
     {
-        $params = $this->options();
+        $params = $this->parseOptions();
         return $this->sendRequest($this->endpoint, params: $params);
     }
 
