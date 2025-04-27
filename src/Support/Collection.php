@@ -91,7 +91,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
     public function map(callable $callback): Collection
     {
-        return static::make(array_map($callback, $this->array, $this->keys()->toArray()));
+        $keys = $this->keys()->toArray();
+
+        return static::make(array_combine($keys, array_map($callback, $this->array, $this->keys()->toArray())));
     }
 
     /**
