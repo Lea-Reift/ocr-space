@@ -286,4 +286,31 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('OCREngine', $options);
         $this->assertSame(2, $options['OCREngine']);
     }
+
+    public function testSetLanguageAutoIfEngineIs2()
+    {
+        $this->client
+            ->fromUrl("https://example.com/image.png")
+            ->isOverlayRequired(true)
+            ->fileType(FileTypeEnum::PDF)
+            ->engine(2);
+
+        $options = $this->client->options();
+        $this->assertArrayHasKey('language', $options);
+        $this->assertSame('auto', $options['language']);
+    }
+
+    public function testNotSetLanguageAutoIfEngineIs2AndLangWasSet()
+    {
+        $this->client
+            ->fromUrl("https://example.com/image.png")
+            ->language(LanguageCodeEnum::ENGLISH)
+            ->isOverlayRequired(true)
+            ->fileType(FileTypeEnum::PDF)
+            ->engine(2);
+
+        $options = $this->client->options();
+        $this->assertArrayHasKey('language', $options);
+        $this->assertSame('eng', $options['language']);
+    }
 }
