@@ -143,12 +143,12 @@ class ClientTest extends TestCase
         $client = $this->client->isOverlayRequired(true);
         $options = $client->options();
         $this->assertArrayHasKey('isOverlayRequired', $options);
-        $this->assertTrue($options['isOverlayRequired']);
+        $this->assertSame("true", $options['isOverlayRequired']);
 
         $client = $this->client->isOverlayRequired(false);
         $options = $client->options();
         $this->assertArrayHasKey('isOverlayRequired', $options);
-        $this->assertFalse($options['isOverlayRequired']);
+        $this->assertSame("false", $options['isOverlayRequired']);
     }
 
     public function testDetectOrientationSetsCorrectParameter(): void
@@ -156,12 +156,12 @@ class ClientTest extends TestCase
         $client = $this->client->detectOrientation(true);
         $options = $client->options();
         $this->assertArrayHasKey('detectOrientation', $options);
-        $this->assertTrue($options['detectOrientation']);
+        $this->assertSame("true", $options['detectOrientation']);
 
         $client = $this->client->detectOrientation(false);
         $options = $client->options();
         $this->assertArrayHasKey('detectOrientation', $options);
-        $this->assertFalse($options['detectOrientation']);
+        $this->assertSame("false", $options['detectOrientation']);
     }
 
     #[DataProvider('fileTypeDataProvider')]
@@ -186,12 +186,12 @@ class ClientTest extends TestCase
         $client = $this->client->isCreateSearchablePdf(true);
         $options = $client->options();
         $this->assertArrayHasKey('isCreateSearchablePdf', $options);
-        $this->assertTrue($options['isCreateSearchablePdf']);
+        $this->assertSame("true", $options['isCreateSearchablePdf']);
 
         $client = $this->client->isCreateSearchablePdf(false);
         $options = $client->options();
         $this->assertArrayHasKey('isCreateSearchablePdf', $options);
-        $this->assertFalse($options['isCreateSearchablePdf']);
+        $this->assertSame("false", $options['isCreateSearchablePdf']);
     }
 
     public function testIsSearchablePdfHideTextLayerSetsCorrectParameter(): void
@@ -199,12 +199,12 @@ class ClientTest extends TestCase
         $client = $this->client->isSearchablePdfHideTextLayer(true);
         $options = $client->options();
         $this->assertArrayHasKey('isSearchablePdfHideTextLayer', $options);
-        $this->assertTrue($options['isSearchablePdfHideTextLayer']);
+        $this->assertSame("true", $options['isSearchablePdfHideTextLayer']);
 
         $client = $this->client->isSearchablePdfHideTextLayer(false);
         $options = $client->options();
         $this->assertArrayHasKey('isSearchablePdfHideTextLayer', $options);
-        $this->assertFalse($options['isSearchablePdfHideTextLayer']);
+        $this->assertSame("false", $options['isSearchablePdfHideTextLayer']);
     }
 
     public function testScaleSetsCorrectParameter(): void
@@ -212,12 +212,12 @@ class ClientTest extends TestCase
         $client = $this->client->scale(true);
         $options = $client->options();
         $this->assertArrayHasKey('scale', $options);
-        $this->assertTrue($options['scale']);
+        $this->assertSame("true", $options['scale']);
 
         $client = $this->client->scale(false);
         $options = $client->options();
         $this->assertArrayHasKey('scale', $options);
-        $this->assertFalse($options['scale']);
+        $this->assertSame("false", $options['scale']);
     }
 
     public function testIsTableSetsCorrectParameter(): void
@@ -225,12 +225,12 @@ class ClientTest extends TestCase
         $client = $this->client->isTable(true);
         $options = $client->options();
         $this->assertArrayHasKey('isTable', $options);
-        $this->assertTrue($options['isTable']);
+        $this->assertSame("true", $options['isTable']);
 
         $client = $this->client->isTable(false);
         $options = $client->options();
         $this->assertArrayHasKey('isTable', $options);
-        $this->assertFalse($options['isTable']);
+        $this->assertSame("false", $options['isTable']);
     }
 
     #[DataProvider('engineDataProvider')]
@@ -280,7 +280,7 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('language', $options);
         $this->assertSame('ara', $options['language']);
         $this->assertArrayHasKey('isOverlayRequired', $options);
-        $this->assertTrue($options['isOverlayRequired']);
+        $this->assertSame("true", $options['isOverlayRequired']);
         $this->assertArrayHasKey('filetype', $options);
         $this->assertSame('PDF', $options['filetype']);
         $this->assertArrayHasKey('OCREngine', $options);

@@ -186,13 +186,13 @@ class Client
 
     public function isOverlayRequired(bool $isRequired): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_OVERLAY_REQUIRED, $isRequired);
+        $this->requestParameters->attach(RequestParameterEnum::IS_OVERLAY_REQUIRED, $isRequired === true ? "true" : "false");
         return $this;
     }
 
     public function detectOrientation(bool $detectOrientation): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::DETECT_ORIENTATION, $detectOrientation);
+        $this->requestParameters->attach(RequestParameterEnum::DETECT_ORIENTATION, $detectOrientation === true ? "true" : "false");
         return $this;
     }
 
@@ -209,25 +209,25 @@ class Client
 
     public function isCreateSearchablePdf(bool $isCreateSearchablePdf): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_CREATE_SEARCHABLE_PDF, $isCreateSearchablePdf);
+        $this->requestParameters->attach(RequestParameterEnum::IS_CREATE_SEARCHABLE_PDF, $isCreateSearchablePdf === true ? "true" : "false");
         return $this;
     }
 
     public function isSearchablePdfHideTextLayer(bool $isSearchablePdfHideTextLayer): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_SEARCHABLE_PDF_HIDE_TEXT_LAYER, $isSearchablePdfHideTextLayer);
+        $this->requestParameters->attach(RequestParameterEnum::IS_SEARCHABLE_PDF_HIDE_TEXT_LAYER, $isSearchablePdfHideTextLayer === true ? "true" : "false");
         return $this;
     }
 
     public function scale(bool $scale): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::SCALE, $scale);
+        $this->requestParameters->attach(RequestParameterEnum::SCALE, $scale === true ? "true" : "false");
         return $this;
     }
 
     public function isTable(bool $isTable): self
     {
-        $this->requestParameters->attach(RequestParameterEnum::IS_TABLE, $isTable);
+        $this->requestParameters->attach(RequestParameterEnum::IS_TABLE, $isTable === true ? "true" : "false");
         return $this;
     }
 
