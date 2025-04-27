@@ -233,6 +233,9 @@ class Client
 
     public function engine(int $engine = 1): self
     {
+        if ($engine === 2 && !$this->requestParameters->contains(RequestParameterEnum::LANGUAGE)) {
+            $this->requestParameters->attach(RequestParameterEnum::LANGUAGE, "auto");
+        }
         $this->requestParameters->attach(RequestParameterEnum::OCR_ENGINE, $engine);
         return $this;
     }
