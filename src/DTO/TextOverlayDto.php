@@ -14,7 +14,7 @@ readonly class TextOverlayDto
     public function __construct(
         array $lines,
         public bool $has_overlay,
-        public string $message,
+        public ?string $message,
     ) {
         $this->lines = Collection::make($lines)
             ->mapIntoCollection()
@@ -29,7 +29,7 @@ readonly class TextOverlayDto
     public static function make(
         array $lines,
         bool $has_overlay,
-        string $message,
+        ?string $message,
     ): self {
         return new TextOverlayDto(
             $lines,
